@@ -14,11 +14,13 @@ DATA_PATH = ROOT / "data" / "q_table_500_episodes.npy"
 SPRITE_PATH = ROOT / "assets" / "robot_sprite.png"
 SPRITESHEET_PATH = ROOT / "assets" / "robot_spritesheet.png"
 
-CELL_SIZE = 150
+CELL_SIZE = 110
 GRID_X = 30
 GRID_Y = 130
 WINDOW_W = GRID_X * 2 + COLS * CELL_SIZE
-WINDOW_H = 700
+GRID_H = ROWS * CELL_SIZE
+BUTTON_BAR_H = 50
+WINDOW_H = GRID_Y + GRID_H + BUTTON_BAR_H
 ANIMATION_MS = 550
 
 
@@ -31,7 +33,7 @@ class GridWorldGUI:
         self.path_index = 0
         self.running = False
 
-        root.title("Q-Learning Grid World — 500 Episodes")
+        root.title("GridWorld Visualization")
         root.geometry(f"{WINDOW_W}x{WINDOW_H}")
         root.resizable(False, False)
 
@@ -49,7 +51,7 @@ class GridWorldGUI:
         self.draw_agent(self.state)
 
         controls = tk.Frame(root, bg="#101418")
-        controls.place(x=GRID_X, y=660, width=COLS * CELL_SIZE, height=35)
+        controls.place(x=GRID_X, y=GRID_Y + GRID_H + 8, width=COLS * CELL_SIZE, height=35)
         tk.Button(controls, text="Run optimal path", command=self.start_animation).pack(side="left")
         tk.Button(controls, text="Reset", command=self.reset).pack(side="right")
 
@@ -77,9 +79,9 @@ class GridWorldGUI:
         self.canvas.create_text(
             WINDOW_W // 2,
             35,
-            text="Tabular Q-Learning — Greedy Policy After 500 Episodes",
+            text="GridWorld Visualization",
             fill="white",
-            font=("Arial", 18, "bold"),
+            font=("Arial", 16, "bold"),
             tags="static",
         )
         self.canvas.create_text(
@@ -222,7 +224,7 @@ class GridWorldGUI:
             self.running = False
             self.canvas.create_text(
                 WINDOW_W // 2,
-                625,
+                GRID_Y + GRID_H - 15,
                 text=f"Goal reached in {len(self.path) - 1} moves",
                 fill="#7ee2a8",
                 font=("Arial", 14, "bold"),
