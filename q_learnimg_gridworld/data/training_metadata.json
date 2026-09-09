@@ -1,0 +1,13 @@
+{
+  "episodes": 500,
+  "seed": 42,
+  "alpha": 0.1,
+  "gamma": 0.99,
+  "epsilon_start": 1.0,
+  "epsilon_decay": 0.995,
+  "epsilon_min": 0.01,
+  "max_steps_per_episode": 200,
+  "num_states": 16,
+  "num_actions": 4,
+  "start_state": 0
+}
